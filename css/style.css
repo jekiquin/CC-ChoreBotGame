@@ -2,7 +2,14 @@
     --light-blue-color: #00ffff;
     --blue-color: #010165;
     --orange-color: #eb6536;
+    --base-margin: 21px;
+    --base-font-size: 16px;
 }
+
+* {
+    box-sizing: border-box;
+}
+
 body {
     background-color: var(--blue-color);
     margin: 0px;
@@ -15,14 +22,16 @@ header {
 }
 
 .title-row {
-    margin-top: 42px;
-    margin-bottom: 21px;
+    /* margin-top: 42px; */
+    margin-top: calc(2 * var(--base-margin));
+    /* margin-bottom: 21px; */
+    margin-bottom: var(--base-margin);
     text-align: center;
 }
 
 .instructions-title {
     display: inline;
-    font-size: 18px;
+    font-size: calc(1.125*var(--base-font-size));
     color: var(--light-blue-color);
 }
 
@@ -33,13 +42,13 @@ header {
 
 .instructions-number {
     padding-right: 25px;
-    font-size: 36px;
+    font-size: calc(2.25*var(--base-font-size));
     color: var(--light-blue-color);
 }
 
 .instructions-text, .score-header {
     padding: 10px;
-    font-size: 14px;
+    font-size: calc(0.875*var(--base-font-size));
     color: white;
 }
 
@@ -54,13 +63,14 @@ header {
 .start-row {
     margin: auto;
     width: 120px;
-    height: 43px;
+    height: calc(2.75*var(--base-font-size));
     background-color: var(--orange-color);
-    padding-top: 18px;
-    font-size: 18px;
+    padding-top: calc(1.125*var(--base-font-size));
+    font-size: calc(1.125*var(--base-font-size));
     text-align: center;
     color: var(--blue-color);
-    margin-bottom: 21px;
+    /* margin-bottom: 21px; */
+    margin-bottom: var(--base-margin);
     cursor: pointer;
 }
 
@@ -70,7 +80,31 @@ header {
 }
 
 .score-number {
-    font-size: 48px;
+    font-size: calc(3*var(--base-font-size));
     font-weight: 700;
     background-color: var(--light-blue-color);
+}
+
+.score-col {
+    width: calc(7.5*var(--base-font-size));
+}
+
+@media screen and (max-width: 480px) {
+    :root {
+        --base-margin: 10px;
+        --base-font-size: 14px;
+    }
+
+    header img {
+        height: 35px;
+    }
+
+    .instructions-row {
+        width: 80%;
+    }
+
+    .door-frame {
+        width: 100px;
+        height: 150px;
+    }
 }
