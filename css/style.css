@@ -1,0 +1,76 @@
+:root{
+    --light-blue-color: #00ffff;
+    --blue-color: #010165;
+    --orange-color: #eb6536;
+}
+body {
+    background-color: var(--blue-color);
+    margin: 0px;
+    font-family: 'Work Sans', sans-serif;
+  }
+
+header {
+    background-color: var(--light-blue-color);
+    text-align: center;
+}
+
+.title-row {
+    margin-top: 42px;
+    margin-bottom: 21px;
+    text-align: center;
+}
+
+.instructions-title {
+    display: inline;
+    font-size: 18px;
+    color: var(--light-blue-color);
+}
+
+.instructions-row {
+    margin: 0 auto;
+    width: 400px;
+}
+
+.instructions-number {
+    padding-right: 25px;
+    font-size: 36px;
+    color: var(--light-blue-color);
+}
+
+.instructions-text, .score-header {
+    padding: 10px;
+    font-size: 14px;
+    color: white;
+}
+
+.door-row {
+    text-align: center;
+}
+
+.door-frame {
+    cursor: pointer;
+}
+
+.start-row {
+    margin: auto;
+    width: 120px;
+    height: 43px;
+    background-color: var(--orange-color);
+    padding-top: 18px;
+    font-size: 18px;
+    text-align: center;
+    color: var(--blue-color);
+    margin-bottom: 21px;
+    cursor: pointer;
+}
+
+.score-table {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.score-number {
+    font-size: 48px;
+    font-weight: 700;
+    background-color: var(--light-blue-color);
+}
