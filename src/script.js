@@ -43,8 +43,7 @@ class ChoreBotModel {
 }
 
 class ChoreBotView {
-    constructor(numChoices) {
-        this.numChoices = numChoices;
+    constructor() {
         this.instructions();
         this.initView();
     }
@@ -68,21 +67,11 @@ class ChoreBotView {
 
     initView() {
         console.log('initializing view');
-        // removing previous children of parent doorRow
-        for (let door of Array.prototype.slice.call(doorRow.childNodes, 1)) {
-            doorRow.removeChild(door);
-        }
-        this.doors = [];
+        this.doors = document.querySelectorAll('.door-frame');
         
-        for (let i=0; i<this.numChoices; i++) {
-            const choice = document.createElement('img');
-            choice.src = doorImage;
-            choice.alt = 'Closed door';
-            choice.id = `door${i+1}`;
-            choice.className ='door-frame';
-            choice.style.padding = '10px';
-            doorRow.append(choice);
-            this.doors.push(choice);
+        for (let door of this.doors) {
+            door.src = doorImage;
+            door.alt = 'Closed door';
         }
         startGame.innerText = 'Good Luck!';
         currentStreakCard.innerText = currentStreak;
@@ -119,53 +108,35 @@ class ChoreBotView {
 
 }
 
-class ChoreBotControl {
-    constructor(model, view) {
-        this.model = model;
-        this.view = view;
-        this.startGameButton();
-        this.initDoorControl();
-    }
-
-    initDoorControl() {
-        this.view.doors.forEach((door, idx) => {
-            door.onclick = () => {
-                if (this.model.isPlaying) {
-                    if (!this.model.doorIsOpenedArray[idx]) {
-                        console.log(`door${idx+1} is opening!`);
-                        this.model.doorIsOpenedArray[idx] = !this.model.doorIsOpenedArray[idx];
-                        if (this.model.doorPathArray[idx]) {
-                            this.model.isWin = false;
-                            this.model.isPlaying = false;
-                        } 
-                        else if (this.model.doorIsOpenedArray.reduce((acc, value) => acc + value) >= 2) {
-                            this.model.isWin = true;
-                            this.model.isPlaying = false;
-                        }
-                        this.view.updateView(idx, this.model.doorPathArray[idx]);
-                        this.view.updateStats(this.model.isWin, this.model.isPlaying);
+(function(model, view) {
+    view.doors.forEach((door, idx) => {
+        door.onclick = () => {
+            if (model.isPlaying) {
+                if (!model.doorIsOpenedArray[idx]) {
+                    console.log(`door${idx+1} is opening!`);
+                    model.doorIsOpenedArray[idx] = true;
+                    if (model.doorPathArray[idx]) {
+                        model.isWin = false;
+                        model.isPlaying = false;
+                    } 
+                    else if (model.doorIsOpenedArray.reduce((acc, value) => acc + value) >= 2) {
+                        model.isWin = true;
+                        model.isPlaying = false;
                     }
-                    else {
-                        console.log(`door${idx+1} is already opened`)
-                    }
+                    view.updateView(idx, model.doorPathArray[idx]);
+                    view.updateStats(model.isWin, model.isPlaying);
+                }
+                else {
+                    console.log(`door${idx+1} is already opened`)
                 }
             }
-        })
-    }
-
-    startGameButton() {
-        startGame.onclick = () => {
-            if (!this.model.isPlaying) {
-                console.log('restarting');
-                this.model.initModel();
-                this.view.initView();
-                this.initDoorControl();
-            }
+        }
+    })
+    startGame.onclick = () => {
+        if (!model.isPlaying) {
+            console.log('restarting');
+            model.initModel();
+            view.initView();
         }
     }
-
-}
-
-const newGame = new ChoreBotControl(new ChoreBotModel(numDoors), new ChoreBotView(numDoors));
-
-
+})(new ChoreBotModel(3), new ChoreBotView)
